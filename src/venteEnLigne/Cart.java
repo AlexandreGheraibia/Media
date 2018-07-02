@@ -2,7 +2,7 @@ package venteEnLigne;
 
 import java.util.ArrayList;
 
-//panier
+//panier 
 public class Cart {
 // n'a pas de constructeur pas besoin de
 //d'initialisation special

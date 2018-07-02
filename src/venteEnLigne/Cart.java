@@ -36,6 +36,7 @@ private ArrayList<Media> mediaList=new ArrayList<>();
        for(Media elem:getMediaList()){
            value+=elem.getTitle()+" "+elem.getNetPrice()+"\n";
        }
+       value+="\nmontant\t\t\t"+getNetTotalPrice();
        return value;
     }
 }

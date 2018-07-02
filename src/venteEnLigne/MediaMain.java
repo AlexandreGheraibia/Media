@@ -19,6 +19,6 @@ public class MediaMain {
         baseket.addMediaFromCart(c);
         System.out.println("avant suppression\n"+baseket);
         baseket.removeMediaFromCart(b);
-        System.out.println("après suppression\n"+baseket);
+        System.out.println("\naprès suppression de "+b.getTitle()+"\n"+baseket);
     }
 }

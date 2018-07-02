@@ -13,10 +13,11 @@ public class MediaMain {
         m.getAuthorList().add(new Author(5,"Silvester","Stallone"));
         int zone = ((Dvd) m).getZone();
         Cart baseket=new Cart();
-        baseket.addMediaFromCart(m2);
-        baseket.addMediaFromCart(m);
-        baseket.addMediaFromCart(b);
-        baseket.addMediaFromCart(c);
+        baseket.addMediaToCart(m2);
+        baseket.addMediaToCart(m2);
+        baseket.addMediaToCart(m);
+        baseket.addMediaToCart(b);
+        baseket.addMediaToCart(c);
         System.out.println("avant suppression\n"+baseket);
         baseket.removeMediaFromCart(b);
         System.out.println("\naprès suppression de "+b.getTitle()+"\n"+baseket);

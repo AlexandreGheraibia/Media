@@ -1,31 +1,61 @@
 package venteEnLigne;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
-//panier 
+
 public class Cart {
-// n'a pas de constructeur pas besoin de
-//d'initialisation special
+//on definit un Set pour l'unicité des élements contenus dans
+// le card
+private HashSet<CartRow> cartRowSet=new HashSet<>();
 
-//une relation n avec media
-//un panier a des medias
-private ArrayList<Media> mediaList=new ArrayList<>();
-//elle a un montanttotal net
-    public void addMediaFromCart(Media media){
-        getMediaList().add(media);
+    public void addMediaToCart(IMedia media){
+        CartRow row =isElementOfCart(media);
+        if(row!=null){
+            row.increment();
+        }
+        else{
+           getCartRowSet().add(new CartRow(media));
+        }
+
     }
-    /*algorithme naif ne prenanpas en compte la multiplicit d'un element*/
-   public void removeMediaFromCart(Media media){
-        getMediaList().remove(media);
-   }
 
-    public ArrayList<Media> getMediaList() {
-        return mediaList;
+    private CartRow isElementOfCart(IMedia media){
+
+        for(CartRow elem:cartRowSet){
+            if(elem.getMedia().equals(media)){
+                return elem;
+            }
+        }
+        return null;
+    }
+
+
+    public void removeMediaFromCart(IMedia media){
+        CartRow row =isElementOfCart(media);
+        if(row!=null){
+            if(row.getQuantity()>1){
+                row.decrement();
+            }
+            else{
+                getCartRowSet().remove(row);
+            }
+        }
+        else{
+            //todo Erreur
+        }
+
+    }
+
+    public Set<CartRow> getCartRowSet() {
+        return cartRowSet;
     }
     public double getNetTotalPrice(){
        int sum=0;
-       for(Media elem:getMediaList()){
-           sum+=elem.getNetPrice();
+       for(CartRow elem:getCartRowSet()){
+           sum+=elem.getMedia().getNetPrice()*elem.getQuantity();
        }
        return sum;
     }
@@ -33,8 +63,8 @@ private ArrayList<Media> mediaList=new ArrayList<>();
     @Override
     public String toString() {
        String value="";
-       for(Media elem:getMediaList()){
-           value+=elem.getTitle()+" "+elem.getNetPrice()+"\n";
+       for(CartRow elem:getCartRowSet()){
+           value+=elem.getMedia().getTitle()+" "+elem.getMedia().getNetPrice()+" "+elem.getQuantity()+"\n";
        }
        value+="\nmontant\t\t\t"+getNetTotalPrice();
        return value;

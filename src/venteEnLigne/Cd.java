@@ -1,6 +1,6 @@
 package venteEnLigne;
 
-public class Cd extends  Media {
+public class Cd extends Media {
 
     private int nbPage;
 
@@ -18,10 +18,7 @@ public class Cd extends  Media {
         super(id,title,price);
     }
 
-    @Override
-    public double getNetPrice(){
-        return getPrice()*1.2;
-    }
+
 
 
 }

@@ -3,7 +3,7 @@ package venteEnLigne;
 import java.util.ArrayList;
 import java.util.List;
 
-public  class Media  {
+public abstract class Media  {
 
     private double price;
     private int id;
@@ -64,9 +64,21 @@ public  class Media  {
         return authorList;
     }
 
-    public double getNetPrice(){
-        return this.getPrice()*1.2;
-    }
+    public abstract double getNetPrice();/*1 on définit une méthode abstraite
+                                        on impose aux descendants de cette classe l'implementation de
+                                        la méthode.
+                                        1.1 La méthode sera commune a toutes les filles donc on pourra utiliser
+                                        avec confianee le polymorphysme sur cette méthode
+                                        1.2 la methode etant abstraite la classe doit etre abstraite
+                                        puisque qu'une class méthode abstraite ne peut etre contenue
+                                        que dans une classe abstraite.L'inverse n'est pas vrai
+                                        1.3 une classe abstraite ne peut être instancier,
+                                         par contre on peut declarer une variable Abstraite qui contiendra
+                                         une instance d'une classe fille.
+                                         est donc exploiter le polymorphisme.
+                                         1.4 une interface est une abstract compléte elle ne contient que des définition
+                                         de méthode est peut contenir des variables
+                                         */
     public void setAuthorList(List<Author> authorList) {
         this.authorList = authorList;
     }

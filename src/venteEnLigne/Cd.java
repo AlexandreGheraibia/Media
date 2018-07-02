@@ -18,6 +18,10 @@ public class Cd extends  Media {
         super(id,title,price);
     }
 
+    @Override
+    public double getNetPrice(){
+        return getPrice()*1.2;
+    }
 
-    
+
 }

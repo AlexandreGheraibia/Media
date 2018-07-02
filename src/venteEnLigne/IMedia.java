@@ -4,7 +4,9 @@ import java.util.List;
 /*extraction(generation) de l'interface IMedia à partir de l'abstract Media
 *Effet de bord la classe media reste abstraite puisque si media redefinit la methode
 * getNetPrice c'est descendant n'auron pas l'obligation
-* d'override leur méthode du même nom
+* d'override leur méthode du même nom.
+* l'interface et la specification des classes descendante
+*
 * */
 public interface IMedia {
     double getPrice();

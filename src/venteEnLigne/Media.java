@@ -3,7 +3,7 @@ package venteEnLigne;
 import java.util.ArrayList;
 import java.util.List;
 
-public  class Media implements IMedia {
+public abstract class Media implements IMedia {
 
     private double price;
     private int id;
@@ -77,9 +77,6 @@ public  class Media implements IMedia {
     public void setAuthorList(List<Author> authorList) {
         this.authorList = authorList;
     }
-    @Override
-    public double getNetPrice(){
-        return getPrice()*1.2;
-    }
+
 
 }

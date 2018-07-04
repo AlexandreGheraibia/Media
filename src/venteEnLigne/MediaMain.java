@@ -33,11 +33,10 @@ public class MediaMain {
         bookRepository.load("bookRepository.csv");
         List<Book> bookList=bookRepository.getAll();
         /*getAll() test
-        for(Book book: bookList){
-            System.out.println(book.getTitle()+" "
-                    +book.getNbPage()+" "
+         System.out.println(book.getId()+" "
+                    +book.getTitle() +" "
                     +book.getNetPrice()+" "
-                    +book.getId()+" "
+                    +book.getNbPage()+" "
                     +book.getPublisher().getName());
 
         }/*/
@@ -94,12 +93,10 @@ public class MediaMain {
 
         bookRepository.add(b);
         for(Book book: bookList){
-            System.out.println(
-                    book.getId()+" "+
-                            book.getTitle()+" "+book.getNetPrice()+" "
+            System.out.println(book.getId()+" "
+                    +book.getTitle() +" "
+                    +book.getNetPrice()+" "
                     +book.getNbPage()+" "
-
-
                     +book.getPublisher().getName());
 
         }

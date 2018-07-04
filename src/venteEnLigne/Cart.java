@@ -23,7 +23,6 @@ private HashSet<CartRow> cartRowSet=new HashSet<>();
     }
 
     private CartRow isElementOfCart(IMedia media){
-
         for(CartRow elem:cartRowSet){
             if(elem.getMedia().equals(media)){
                 return elem;
@@ -33,10 +32,11 @@ private HashSet<CartRow> cartRowSet=new HashSet<>();
     }
 
 
-    public void removeMediaFromCart(IMedia media){
+    public void removeMediaFromCart(IMedia media) throws MediaException,CartRowException {
         CartRow row =isElementOfCart(media);
         if(row!=null){
             if(row.getQuantity()>1){
+
                 row.decrement();
             }
             else{
@@ -44,6 +44,7 @@ private HashSet<CartRow> cartRowSet=new HashSet<>();
             }
         }
         else{
+            throw new MediaException("media exception: try to delete an not existant element");
             //todo Erreur
         }
 
@@ -59,7 +60,15 @@ private HashSet<CartRow> cartRowSet=new HashSet<>();
        }
        return sum;
     }
+    public boolean validate() throws CartRowException {
+        boolean valide=true;
+       if(getNetTotalPrice()<0) {
+           valide=false;
+           throw new CartRowException("Exception") ;
 
+       }
+       return valide;
+    }
     @Override
     public String toString() {
        String value="";

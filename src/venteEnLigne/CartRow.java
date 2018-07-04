@@ -12,12 +12,12 @@ public class CartRow {
         quantity = getQuantity() + 1;
     }
 
-    public void decrement(){
+    public void decrement() throws CartRowException {
         if(getQuantity() >1){
             quantity = getQuantity() - 1;
         }
         else{
-            //todo erreur
+           throw new CartRowException("intent to decrease an quantity under one ");
         }
 
     }

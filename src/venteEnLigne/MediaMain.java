@@ -103,8 +103,8 @@ public class MediaMain {
 
         Book b=new Book(1,"Livre 2",20);
         b.setNbPage(90);
-        b.setPublisher(new Publisher(1,"Publisher 2"));
-        bookRepository.remove(b);
+        b.setPublisher(new Publisher(1,"Publisher"));
+        bookRepository.update(b);
 
         for(Book book: bookList){
             System.out.println(book.getId()+" "

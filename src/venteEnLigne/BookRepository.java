@@ -95,8 +95,8 @@ public class BookRepository /* implements IBookRepository */{
         return matchPublisherBookList;
     }
     private boolean hasAllAttributs(Book b){
-        if(b.getId()>0&&
-                b.getPublisher()!=null&&b.getPublisher().getName().length()>0 &&
+        if(b.getId()>=0&&
+                b.getPublisher()!=null&&b.getPublisher().getName().length()>0 && b.getPublisher().getId()>=0&&
                 b.getTitle()!=null&&b.getTitle().length()>0&&
                 b.getNbPage()>0
                 &&b.getPrice()>0){
@@ -145,7 +145,8 @@ public class BookRepository /* implements IBookRepository */{
                 if(findBook.getTitle().equals(b.getTitle())&&
                         b.getPrice()==findBook.getPrice()&&
                         b.getNbPage()==findBook.getNbPage()&&
-                        b.getPublisher().getName().equals(findBook.getPublisher().getName())){
+                        b.getPublisher().getName().equals(findBook.getPublisher().getName())&&
+                        b.getPublisher().getId()==findBook.getPublisher().getId()){
                         getAll().remove(findBook);
                 }
                 else{
@@ -159,9 +160,20 @@ public class BookRepository /* implements IBookRepository */{
         }
     }
 
+
     //@Override
     public void update(Book b) {
+        if(hasAllAttributs(b)){
+            Book findBook=getById(b.getId());
+            if(findBook!=null){
+                getAll().remove(findBook);
+                getAll().add(b);
+            }
 
+            else{
+                //throw mediaException("update in BookRepository: book unexist for id"+b.getId());
+                }
+        }
     }
 
 }

@@ -94,10 +94,10 @@ public class BookRepository /* implements IBookRepository */{
         }
         return matchPublisherBookList;
     }
-    private boolean fullAttribues(Book b){
+    private boolean hasAllAttributs(Book b){
         if(b.getId()>0&&
-                b.getPublisher()!=null&&b.getPublisher().getName()!="" &&
-                b.getTitle()!=null&&b.getTitle()!=""&&
+                b.getPublisher()!=null&&b.getPublisher().getName().length()>0 &&
+                b.getTitle()!=null&&b.getTitle().length()>0&&
                 b.getNbPage()>0
                 &&b.getPrice()>0){
             return true;
@@ -123,7 +123,7 @@ public class BookRepository /* implements IBookRepository */{
 
    // @Override
     public void add(Book b) {
-        if(fullAttribues(b)){
+        if(hasAllAttributs(b)){
             if(isAddable(b)){
                 getAll().add(b);
             }
@@ -138,7 +138,25 @@ public class BookRepository /* implements IBookRepository */{
 
     //@Override
     public void remove(Book b) {
+        if(hasAllAttributs(b)){
 
+            Book findBook=getById(b.getId());
+            if(findBook!=null){
+                if(findBook.getTitle().equals(b.getTitle())&&
+                        b.getPrice()==findBook.getPrice()&&
+                        b.getNbPage()==findBook.getNbPage()&&
+                        b.getPublisher().getName().equals(findBook.getPublisher().getName())){
+                        getAll().remove(findBook);
+                }
+                else{
+                    //throw mediaException("remove in BookRepository: book attributes not the same");
+                }
+
+            }
+            else{
+                //throw mediaException("remove in BookRepository: book id unexist");
+            }
+        }
     }
 
     //@Override

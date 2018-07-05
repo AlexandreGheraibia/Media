@@ -85,13 +85,27 @@ public class MediaMain {
         *   Book b=new Book(0,"",100);
         *   b.setNbPage(100);
         *   b.setPublisher(new Publisher(0,"mon publisher"));
-        *
-        * */
-        Book b=new Book(1,"Livre 2",10);
-        b.setNbPage(100);
-        b.setPublisher(new Publisher(0,"Publisher 1"));
+        *   Book b=new Book(1,"Livre 2",10);
+            b.setNbPage(100);
+            b.setPublisher(new Publisher(0,"Publisher 1"));
 
-        bookRepository.add(b);
+            bookRepository.add(b);
+            for(Book book: bookList){
+            System.out.println(book.getId()+" "
+                    +book.getTitle() +" "
+                    +book.getNetPrice()+" "
+                    +book.getNbPage()+" "
+                    +book.getPublisher().getName());
+
+        }
+        * */
+        /*remove test*/
+
+        Book b=new Book(1,"Livre 2",20);
+        b.setNbPage(90);
+        b.setPublisher(new Publisher(1,"Publisher 2"));
+        bookRepository.remove(b);
+
         for(Book book: bookList){
             System.out.println(book.getId()+" "
                     +book.getTitle() +" "
@@ -100,5 +114,7 @@ public class MediaMain {
                     +book.getPublisher().getName());
 
         }
+
+
     }
 }

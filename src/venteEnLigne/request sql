@@ -1,0 +1,5 @@
+#requete nm
+les livres ecrit par l'auteut Hun
+select author.name, book.title
+from author,book,listbook
+where author.id=listbook.authorid and book.id=listbook.id and author.name='Hun'

@@ -12,6 +12,7 @@ public class BookSqlRepository /*implements*/  {
    // public void
     private  ArrayList<Book>  sousFonction(String request){
         String result="";
+        String modifyRequest=request+" and publisher.id=book.publisherid";
         ArrayList<Book> bookList=new ArrayList<>();
         String[] champs={"id","title","price","nbpages","publisher","author"};
         String driverName = "org.postgresql.Driver";
@@ -20,7 +21,7 @@ public class BookSqlRepository /*implements*/  {
             Class.forName(driverName);
             Connection conn = DriverManager.getConnection(url,"postgres","Admin");
             Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery(request);
+            ResultSet rs = st.executeQuery(modifyRequest);
             // Ecriture st.execute()
             int id,nbPage,publisherid;
             String title,publisher;
@@ -87,21 +88,21 @@ public class BookSqlRepository /*implements*/  {
 
     public Book getById(int id) {
         return sousFonction("select * from book,publisher" +
-                                    "where publisher.id=book.publisherid and id="+id ).get(0);
+                                    "where id="+id ).get(0);
 
     }
 
 
     public List<Book> getByTitle(String title){
         return sousFonction("select * from book,publisher" +
-                                     "where publisher.id=book.publisherid and title like %"+title+"%");
+                                     "where title like %"+title+"%");
     }
 
 
     public List<Book> getByPrice(double price) {
 
         return sousFonction("select * from book,publisher " +
-                                    "where publisher.id=book.publisherid and price<="+price);
+                                    "where  price<="+price);
 
     }
 
@@ -109,8 +110,7 @@ public class BookSqlRepository /*implements*/  {
     public List<Book> getByPublisher(String publisherName) {
 
         return sousFonction("select book.id,book.title,book.nbpages,book.publisherid,publisher.name from book,publisher " +
-                                                            "where book.publisherid=publisher.id " +
-                                                            "and publisher.name="+publisherName );
+                                                            "where publisher.name="+publisherName );
     }
 
 

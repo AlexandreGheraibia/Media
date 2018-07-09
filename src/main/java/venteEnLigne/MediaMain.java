@@ -1,52 +1,30 @@
 package venteEnLigne;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 public class MediaMain {
 
-    public static void main(String[] args) throws IOException {
-       /*media and classe dérived test
-        Media m2 = new Book(0,"harry potter",3);
-        Media m = new Book(1,"Java",10);
-        Media b = new Book(1,"Java",10);
-        Media c = new Cd(2,"A que Johnny",20);
-        m = new Dvd(3, "Rambo 12", 30);
-        System.out.println(c.getNetPrice());
-        m.setPublisher(new Publisher(4,"Gaumont"));
-        m.getAuthorList().add(new Author(5,"Silvester","Stallone"));
-        int zone = ((Dvd) m).getZone();
-
-        /*Cart test
-        Cart baseket=new Cart();
-
-        baseket.addMediaToCart(m2);
-        baseket.addMediaToCart(m2);
-        baseket.addMediaToCart(m);
-        baseket.addMediaToCart(b);
-        baseket.addMediaToCart(c);
-        System.out.println("avant suppression\n"+baseket);
-        baseket.removeMediaFromCart(b);
-        System.out.println("\naprès suppression de "+b.getTitle()+"\n"+baseket);*/
-       /*Repository test*/
-       /* BookRepository bookRepository=new BookRepository();
-        bookRepository.load("bookRepository.csv");
-        List<Book> bookList=bookRepository.getAll();*/
+    public static void main(String[] args) {
+      try{
         BookSqlRepository bookSqlRepository=new BookSqlRepository();
         bookSqlRepository.load("localhost");
         List<Book> bookList=bookSqlRepository.getAll();
         /*getAll() test*/
         for(Book book:bookList){
-
-
-         System.out.println(book.getId()+" "
+            System.out.println(book.getId()+" "
                     +book.getTitle() +" "
                     +book.getNetPrice()+" "
                     +book.getNbPage()+" "
-                 +book.getPublisher().getName());
-
+                    +book.getPublisher().getName());
         }
-        /*/
+      } catch (SQLException e) {
+          e.printStackTrace();
+      } catch (ClassNotFoundException e) {
+          e.printStackTrace();
+      }
+       /*/
         /* getById test
         System.out.println(bookRepository.getById(2).getTitle());
         //erreur d'index

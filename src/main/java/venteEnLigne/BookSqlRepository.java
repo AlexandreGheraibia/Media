@@ -10,14 +10,14 @@ public class BookSqlRepository /*implements*/  {
 
     private String uri;
    // public void
-    private  ArrayList<Book>  sousFonction(String request){
+    private  ArrayList<Book>  sousFonction(String request) throws ClassNotFoundException, SQLException {
         String result="";
         String modifyRequest=request+" and publisher.id=book.publisherid";
         ArrayList<Book> bookList=new ArrayList<>();
         String[] champs={"id","title","price","nbpages","publisher","author"};
         String driverName = "org.postgresql.Driver";
         String url = "jdbc:postgresql://"+uri+":5432/postgres";
-        try {
+
             Class.forName(driverName);
             Connection conn = DriverManager.getConnection(url,"postgres","Admin");
             Statement st = conn.createStatement();
@@ -64,45 +64,40 @@ public class BookSqlRepository /*implements*/  {
             }
             conn.close();
 
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
         return bookList;
     }
-    public void load(String uri) throws IOException {
+    public void load(String uri) {
             this.uri=uri;
 
     }
 
 
-    public List<Book> getAll() {
+    public List<Book> getAll() throws SQLException, ClassNotFoundException {
 
         return sousFonction("select * from book,publisher " +
                                      "where publisher.id=book.publisherid");
     }
 
 
-    public Book getById(int id) {
+    public Book getById(int id) throws SQLException, ClassNotFoundException {
         return sousFonction("select * from book,publisher" +
                                     "where id="+id ).get(0);
     }
 
 
-    public List<Book> getByTitle(String title){
+    public List<Book> getByTitle(String title) throws SQLException, ClassNotFoundException {
         return sousFonction("select * from book,publisher" +
                                      "where title like %"+title+"%");
     }
 
 
-    public List<Book> getByPrice(double price) {
+    public List<Book> getByPrice(double price) throws SQLException, ClassNotFoundException {
         return sousFonction("select * from book,publisher " +
                                     "where  price<="+price);
     }
 
 
-    public List<Book> getByPublisher(String publisherName) {
+    public List<Book> getByPublisher(String publisherName) throws SQLException, ClassNotFoundException {
         return sousFonction("select book.id,book.title,book.nbpages,book.publisherid,publisher.name from book,publisher " +
                                                             "where publisher.name="+publisherName );
     }

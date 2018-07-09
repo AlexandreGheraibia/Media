@@ -10,8 +10,8 @@ public class BookSqlRepository /*implements*/  {
 
     private String uri;
    // public void
-    private  ArrayList<Book>  bdRequest(String predicat) throws ClassNotFoundException, SQLException {
-        String realRequest="select book.id,book.title,book.price,book.nbpages,book.publisherid,publisher.name from book,publisher "+ predicat
+    private  ArrayList<Book>  bdWhereRequest(String predicat) throws ClassNotFoundException, SQLException {
+        String realRequest="select book.id,book.title,book.price,book.nbpages,book.publisherid,publisher.name from book,publisher where "+ predicat
                 +" and publisher.id=book.publisherid";
         ArrayList<Book> bookList=new ArrayList<>();
         String[] champs={"id","title","price","nbpages","publisher","author"};
@@ -73,27 +73,27 @@ public class BookSqlRepository /*implements*/  {
 
 
     public List<Book> getAll() throws SQLException, ClassNotFoundException {
-        return bdRequest("where publisher.id=book.publisherid");
+        return bdWhereRequest("publisher.id=book.publisherid");
     }
 
 
     public Book getById(int id) throws SQLException, ClassNotFoundException {
-        return bdRequest("where id="+id ).get(0);
+        return bdWhereRequest("id="+id ).get(0);
     }
 
 
     public List<Book> getByTitle(String title) throws SQLException, ClassNotFoundException {
-        return bdRequest("where title like %"+title+"%");
+        return bdWhereRequest("title like %"+title+"%");
     }
 
 
     public List<Book> getByPrice(double price) throws SQLException, ClassNotFoundException {
-        return bdRequest("where  price<="+price);
+        return bdWhereRequest("price<="+price);
     }
 
 
     public List<Book> getByPublisher(String publisherName) throws SQLException, ClassNotFoundException {
-        return bdRequest("where publisher.name="+publisherName );
+        return bdWhereRequest("publisher.name="+publisherName );
     }
 
 

@@ -23,9 +23,9 @@ public class BookSqlRepository /*implements*/  {
             ResultSet rs = st.executeQuery(request);
             // Ecriture st.execute()
             int id,nbPage,publisherid;
-            String title;
+            String title,publisher;
             double price;
-            String publisher;
+
             while(rs.next()) {
                 id=0;
                 title="";

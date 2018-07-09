@@ -80,28 +80,32 @@ public class BookSqlRepository /*implements*/  {
 
     public List<Book> getAll() {
 
-        return sousFonction("select * from book,publisher where publisher.id=book.publisherid");
+        return sousFonction("select * from book,publisher " +
+                                     "where publisher.id=book.publisherid");
     }
 
 
     public Book getById(int id) {
-        return sousFonction("select * from book where publisher.id=book.publisherid and id="+id ).get(0);
+        return sousFonction("select * from book,publisher" +
+                                    "where publisher.id=book.publisherid and id="+id ).get(0);
 
     }
 
 
     public List<Book> getByTitle(String title){
-        return sousFonction("select * from book publisher.id=book.publisherid and title like %"+title+"%");
+        return sousFonction("select * from book,publisher" +
+                                     "where publisher.id=book.publisherid and title like %"+title+"%");
     }
 
 
     public List<Book> getByPrice(double price) {
 
-        return sousFonction("select * from book publisher.id=book.publisherid and price<="+price);
+        return sousFonction("select * from book,publisher " +
+                                    "where publisher.id=book.publisherid and price<="+price);
 
     }
 
- 
+
     public List<Book> getByPublisher(String publisherName) {
 
         return sousFonction("select book.id,book.title,book.nbpages,book.publisherid,publisher.name from book,publisher " +

@@ -10,9 +10,9 @@ public class BookSqlRepository /*implements*/  {
 
     private String uri;
    // public void
-    private  ArrayList<Book>  sousFonction(String request) throws ClassNotFoundException, SQLException {
-        String result="";
-        String modifyRequest=request+" and publisher.id=book.publisherid";
+    private  ArrayList<Book>  bdRequest(String predicat) throws ClassNotFoundException, SQLException {
+        String realRequest="select book.id,book.title,book.price,book.nbpages,book.publisherid,publisher.name from book,publisher "+ predicat
+                +" and publisher.id=book.publisherid";
         ArrayList<Book> bookList=new ArrayList<>();
         String[] champs={"id","title","price","nbpages","publisher","author"};
         String driverName = "org.postgresql.Driver";
@@ -21,7 +21,7 @@ public class BookSqlRepository /*implements*/  {
             Class.forName(driverName);
             Connection conn = DriverManager.getConnection(url,"postgres","Admin");
             Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery(modifyRequest);
+            ResultSet rs = st.executeQuery(realRequest);
             // Ecriture st.execute()
             int id,nbPage,publisherid;
             String title,publisher;
@@ -73,33 +73,27 @@ public class BookSqlRepository /*implements*/  {
 
 
     public List<Book> getAll() throws SQLException, ClassNotFoundException {
-
-        return sousFonction("select * from book,publisher " +
-                                     "where publisher.id=book.publisherid");
+        return bdRequest("where publisher.id=book.publisherid");
     }
 
 
     public Book getById(int id) throws SQLException, ClassNotFoundException {
-        return sousFonction("select * from book,publisher" +
-                                    "where id="+id ).get(0);
+        return bdRequest("where id="+id ).get(0);
     }
 
 
     public List<Book> getByTitle(String title) throws SQLException, ClassNotFoundException {
-        return sousFonction("select * from book,publisher" +
-                                     "where title like %"+title+"%");
+        return bdRequest("where title like %"+title+"%");
     }
 
 
     public List<Book> getByPrice(double price) throws SQLException, ClassNotFoundException {
-        return sousFonction("select * from book,publisher " +
-                                    "where  price<="+price);
+        return bdRequest("where  price<="+price);
     }
 
 
     public List<Book> getByPublisher(String publisherName) throws SQLException, ClassNotFoundException {
-        return sousFonction("select book.id,book.title,book.nbpages,book.publisherid,publisher.name from book,publisher " +
-                                                            "where publisher.name="+publisherName );
+        return bdRequest("where publisher.name="+publisherName );
     }
 
 

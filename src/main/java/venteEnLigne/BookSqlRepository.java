@@ -26,7 +26,6 @@ public class BookSqlRepository /*implements*/  {
             int id,nbPage,publisherid;
             String title,publisher;
             double price;
-
             while(rs.next()) {
                 id=0;
                 title="";
@@ -57,10 +56,9 @@ public class BookSqlRepository /*implements*/  {
                             break;
                         default:break;
                     }
-
-
                 }
                 Book b=new Book(id,title,price);
+                b.setNbPage(nbPage);
                 b.setPublisher(new Publisher(publisherid,publisher));
                 bookList.add(b);
             }
@@ -89,7 +87,6 @@ public class BookSqlRepository /*implements*/  {
     public Book getById(int id) {
         return sousFonction("select * from book,publisher" +
                                     "where id="+id ).get(0);
-
     }
 
 
@@ -100,15 +97,12 @@ public class BookSqlRepository /*implements*/  {
 
 
     public List<Book> getByPrice(double price) {
-
         return sousFonction("select * from book,publisher " +
                                     "where  price<="+price);
-
     }
 
 
     public List<Book> getByPublisher(String publisherName) {
-
         return sousFonction("select book.id,book.title,book.nbpages,book.publisherid,publisher.name from book,publisher " +
                                                             "where publisher.name="+publisherName );
     }

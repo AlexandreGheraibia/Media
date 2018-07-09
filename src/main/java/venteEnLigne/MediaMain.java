@@ -9,7 +9,7 @@ public class MediaMain {
     public static void main(String[] args) {
       try{
         BookSqlRepository bookSqlRepository=new BookSqlRepository();
-        bookSqlRepository.load("localhost");
+        bookSqlRepository.connect("localhost");
         List<Book> bookList=bookSqlRepository.getAll();
         /*getAll() test*/
         for(Book book:bookList){
@@ -19,6 +19,7 @@ public class MediaMain {
                     +book.getNbPage()+" "
                     +book.getPublisher().getName());
         }
+        bookSqlRepository.close();
       } catch (SQLException e) {
           e.printStackTrace();
       } catch (ClassNotFoundException e) {

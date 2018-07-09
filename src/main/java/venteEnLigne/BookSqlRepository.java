@@ -8,19 +8,14 @@ import java.util.List;
 
 public class BookSqlRepository /*implements*/  {
 
-    private String uri;
+    private Connection connection;
    // public void
     private  ArrayList<Book>  bdWhereRequest(String predicat) throws ClassNotFoundException, SQLException {
         String realRequest="select book.id,book.title,book.price,book.nbpages,book.publisherid,publisher.name from book,publisher where "+ predicat
                 +" and publisher.id=book.publisherid";
         ArrayList<Book> bookList=new ArrayList<>();
         String[] champs={"id","title","price","nbpages","publisher","author"};
-        String driverName = "org.postgresql.Driver";
-        String url = "jdbc:postgresql://"+uri+":5432/postgres";
-
-            Class.forName(driverName);
-            Connection conn = DriverManager.getConnection(url,"postgres","Admin");
-            Statement st = conn.createStatement();
+         Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery(realRequest);
             // Ecriture st.execute()
             int id,nbPage,publisherid;
@@ -62,14 +57,21 @@ public class BookSqlRepository /*implements*/  {
                 b.setPublisher(new Publisher(publisherid,publisher));
                 bookList.add(b);
             }
-            conn.close();
-
         return bookList;
     }
-    public void load(String uri) {
-            this.uri=uri;
+
+    public void connect( String uri) throws SQLException, ClassNotFoundException {
+        String url = "jdbc:postgresql://"+uri+":5432/postgres";
+        String driverName = "org.postgresql.Driver";
+        Class.forName(driverName);
+        connection = DriverManager.getConnection(url,"postgres","Admin");
 
     }
+    public void close() throws SQLException {
+        connection.close();
+
+    }
+
 
 
     public List<Book> getAll() throws SQLException, ClassNotFoundException {

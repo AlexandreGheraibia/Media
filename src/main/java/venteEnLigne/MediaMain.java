@@ -17,7 +17,8 @@ public class MediaMain {
                     +book.getTitle() +" "
                     +book.getNetPrice()+" "
                     +book.getNbPage()+" "
-                    +book.getPublisher().getName());
+                    +book.getPublisher().getName()
+                    +book.getAuthorList());
         }
         bookSqlRepository.close();
       } catch (SQLException e) {

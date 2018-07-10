@@ -11,7 +11,11 @@ public class Author {
         this.firstName = firstName;
         this.lastName = lastName;
     }
+    public Author(int id, String lastName) {
+        this(id,"Inconnu",lastName);
+    }
     public Author() {}
+
 
 
     public int getId() {
@@ -36,5 +40,9 @@ public class Author {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+    public String toString(){
+
+        return getLastName();
     }
 }

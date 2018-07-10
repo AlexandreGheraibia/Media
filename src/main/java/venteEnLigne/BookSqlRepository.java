@@ -94,6 +94,7 @@ public class BookSqlRepository /*implements*/  {
     }
 
     private void addAuthor(ArrayList<Book> bookList )throws SQLException, SQLException {
+        //todo rename listbook association by authorbook and change id by bookid
         String request="select author.id,author.name " +
                 "from author,listbook,book " +
                 "where author.id=listbook.authorid " +

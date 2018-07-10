@@ -88,11 +88,11 @@ public class BookSqlRepository /*implements IBookRepository */  {
             b.setPublisher(new Publisher(publisherid,publisher));
             bookList.add(b);
         }
-        addAuthor(bookList);
+        addAuthorList(bookList);
         return bookList;
     }
 
-    private void addAuthor(ArrayList<Book> bookList )throws SQLException, SQLException {
+    private void addAuthorList(ArrayList<Book> bookList )throws SQLException, SQLException {
         //todo rename listbook association by authorbook and change id by bookid
         String request="select author.id,author.name " +
                 "from author,listbook,book " +

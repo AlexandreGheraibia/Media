@@ -191,7 +191,7 @@ public class BookSqlRepository /*implements IBookRepository */  {
                     //todo
                     //remplacer par la requete delete ou transaction
                     Statement st = connection.createStatement();
-                    st.execute("DELETE FROM `book`WHERE book.id"+findBook.getId());
+                    st.execute("DELETE FROM `book` WHERE book.id"+findBook.getId());
                 }
                 else{
                     //throw mediaException("remove in BookRepository: book attributes not the same");

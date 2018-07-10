@@ -1,14 +1,13 @@
 
 package venteEnLigne;
-import java.io.IOException;
+
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
-public class BookSqlRepository /*implements*/  {
+
+public class BookSqlRepository /*implements IBookRepository */  {
 
     private Connection connection;
 
@@ -52,7 +51,7 @@ public class BookSqlRepository /*implements*/  {
         String[] champs={"id","title","price","nbpages","publisher","author"};
         Statement st = connection.createStatement();
         ResultSet rs = st.executeQuery(realRequest);
-        // Ecriture st.execute()
+
         int id=0,nbPage=0,publisherid=0;
         String title,publisher;
         double price;
@@ -163,7 +162,11 @@ public class BookSqlRepository /*implements*/  {
             if(isAddable(b)){
                 //todo
                 //remplacer par la requete insert ou par une transaction
-                getAll().add(b);
+                Statement st = connection.createStatement();
+                st.execute("INSERT INTO book VALUES ('"+b.getId()+"'," +
+                                                  " '"+b.getTitle()+
+                                                    " '"+b.getPrice()+
+                                                  "','"+b.getPublisher().getId()+"')");
             }
             else{
                 //throw mediaException("add in BookRepository: book already exist);
@@ -187,7 +190,8 @@ public class BookSqlRepository /*implements*/  {
                         b.getPublisher().getId()==findBook.getPublisher().getId()){
                     //todo
                     //remplacer par la requete delete ou transaction
-                    getAll().remove(findBook);
+                    Statement st = connection.createStatement();
+                    st.execute("DELETE FROM `book`WHERE book.id"+findBook.getId());
                 }
                 else{
                     //throw mediaException("remove in BookRepository: book attributes not the same");
@@ -208,9 +212,12 @@ public class BookSqlRepository /*implements*/  {
             if(findBook!=null){
                 //todo
                 //remplacer par la requete update ou trnsaction
-                getAll().remove(findBook);
-                getAll().add(b);
-
+                Statement st = connection.createStatement();
+                st.execute("UPDATE table SET title = '"+b.getTitle()
+                        +"',price = '"+b.getPrice()
+                        +"',nbpages = '"+b.getNbPage()
+                        +"',publisherid= '" +b.getPublisher().getId()
+                        +"' WHERE id="+b.getId());
             }
 
             else{
